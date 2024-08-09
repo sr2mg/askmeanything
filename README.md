@@ -17,7 +17,7 @@ cd askmeanything
 rye sync
 cp .env.example .env
 vim .env
-python main.py
+rye run python main.py
 ```
 
 ### rye がない場合
