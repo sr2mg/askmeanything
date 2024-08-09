@@ -1,13 +1,15 @@
-# 匿名で Discord で質問できるボット
+# 匿名で質問できる Discord Bot
 
-## 使い方
+## GUI でポチポチすること
 
-1. Discord Developer [アプリケーション](https://discord.com/developers/applications)より新規のアプリケーションを作成
-2. bot 権限で管理者権限のある Discord サーバにインストール
-3. 下記の「動かし方」を参照
-4. `/ama "大規模言語モデルとはなんですか？"`あるいは DM より利用
+1. Discord Developer Portal [アプリケーションページ](https://discord.com/developers/applications)より新規のアプリケーションを作成（New Application）
+1. [Optional] General Information タブより画像を指定
+1. OAuth2 タブより OAuth2 URL Generator -> Bot にチェック -> Send Messages にチェック -> URL を開いて bot をサーバに追加
+1. Bot タブより Reset Token -> Token をコピー（.env にあとで記載するので控える）
+1. 環境構築（下記参照）
+1. `/ama "大規模言語モデルとはなんですか？"` のように質問を入力
 
-## 動かし方
+## CUI でカタカタすること
 
 ```
 git clone git@github.com:schroneko/askmeanything.git
