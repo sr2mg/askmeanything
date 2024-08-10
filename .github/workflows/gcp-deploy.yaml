@@ -41,7 +41,7 @@ jobs:
 
     - name: Deploy to App Engine
       run: |
-        gcloud app deploy app.yaml --project=${{ env.PROJECT_ID }} --quiet
+        gcloud app deploy --image-url=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}
 
     - name: Display app URL
       run: |
