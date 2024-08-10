@@ -1,0 +1,11 @@
+# docker-compose.yml
+version: '3'
+services:
+  discord-bot:
+    build: .
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - TARGET_CHANNEL_ID=${TARGET_CHANNEL_ID}
+    volumes:
+      - .:/app
+

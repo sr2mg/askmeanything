@@ -12,7 +12,7 @@
 ## CUI でカタカタすること
 
 ```
-git clone git@github.com:schroneko/askmeanything.git
+git clone git@github.com:sr2mg/askmeanything.git
 cd askmeanything
 rye sync
 cp .env.example .env
