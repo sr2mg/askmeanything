@@ -35,14 +35,21 @@ jobs:
         docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }} .
         docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
     - name: Update app.yaml
-      run: |
-        sed -i 's|IMAGE_URL|${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}|g' app.yaml
+      run: node .github/scripts/config-compile.js
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        TARGET_CHANNEL_ID: ${{ secrets.TARGET_CHANNEL_ID }}
+        LOG_CHANNEL_ID: ${{ secrets.LOG_CHANNEL_ID }}
 
     - name: Deploy to App Engine
       run: |
-        gcloud app deploy --image-url=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }} \
-          --set-env-vars=BOT_TOKEN=${{ secrets.BOT_TOKEN }},TARGET_CHANNEL_ID=${{ secrets.TARGET_CHANNEL_ID }},LOG_CHANNEL_ID=${{ secrets.LOG_CHANNEL_ID }}
+        gcloud app deploy --image-url=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }} 
 
     - name: Display app URL
       run: |
@@ -52,3 +59,4 @@ jobs:
       if: always()
       run: |
         docker rmi ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}
+        rm -f app.yaml
