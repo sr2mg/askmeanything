@@ -1,12 +1,6 @@
 runtime: custom
 env: flex
 
-# 環境変数の設定
-env_variables:
-  BOT_TOKEN: ${BOT_TOKEN}
-  TARGET_CHANNEL_ID: ${TARGET_CHANNEL_ID}
-  LOG_CHANNEL_ID: ${LOG_CHANNEL_ID}
-
 # その他の設定
 manual_scaling:
   instances: 1
